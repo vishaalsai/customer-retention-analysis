@@ -30,8 +30,10 @@ data/raw/
 .idea/
 *.swp
 
-# MLflow
+# MLflow — local experiment tracking (not for version control)
 mlruns/
+mlruns.db
+*.db
 
 # Build artifacts
 dist/
