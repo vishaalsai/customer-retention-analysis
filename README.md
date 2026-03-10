@@ -1,134 +1,163 @@
-# Customer Segmentation & Retention Analysis — E-Commerce
+# 🛒 Customer Segmentation & Retention Analysis
 
-> End-to-end data science project: customer segmentation, churn prediction, and lifetime value estimation — applied to a real-world e-commerce transactional dataset.
+**A full-stack data science project combining unsupervised learning, churn prediction, and customer lifetime value estimation — presented as a live interactive dashboard.**
 
----
-
-## Overview
-
-E-commerce platforms depend on repeat purchases to stay profitable. This project applies unsupervised and supervised machine learning to 1M+ real transactions to answer three core business questions:
-
-1. **Who are our customers?** — RFM-based segmentation using K-Means clustering to identify High-Value Loyalists, At-Risk Mid-Tier, and Low-Engagement One-Time Buyers.
-2. **Who is about to leave?** — Churn prediction using XGBoost / LightGBM with feature engineering on purchase recency, frequency, and order value patterns.
-3. **How much is each customer worth?** — Customer Lifetime Value (CLV) estimation using the BG/NBD + Gamma-Gamma model via the `lifetimes` library.
-
-Results are surfaced in an interactive **Streamlit dashboard** and tracked with **MLflow** for experiment reproducibility.
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Live%20App-FF4B4B?logo=streamlit&logoColor=white)](https://customer-retention-analysis-n9qkjosvrfllakzbsamnqf.streamlit.app)
+![XGBoost](https://img.shields.io/badge/XGBoost-2.0+-006600?logo=xgboost&logoColor=white)
+![MLflow](https://img.shields.io/badge/MLflow-Tracked-0194E2?logo=mlflow&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ---
 
-## Business Problem
+## 🔗 Live Demo
 
-For e-commerce companies like **Amazon**, **Shopify**, or **Flipkart**, growth depends not just on acquiring new buyers but on understanding and retaining existing ones. Industry research shows that returning customers spend 67% more than first-time buyers, and acquiring a new customer costs 5–7× more than retaining an existing one.
+> 🚀 **[Launch Live Dashboard](https://customer-retention-analysis-n9qkjosvrfllakzbsamnqf.streamlit.app)**
 
-Yet most retail analytics teams struggle to move beyond aggregate dashboards toward actionable, customer-level intelligence. The core questions go unanswered:
-
-> *"How do we identify which customers are about to churn, which are high-value, and what actions should we take for each segment?"*
-
-This project simulates the analytical workflow a Data Scientist at an e-commerce company would run to:
-- Identify high-value customer segments for targeted loyalty and upsell campaigns
-- Flag customers showing early churn signals for proactive retention outreach
-- Prioritize marketing spend by quantifying the economic value of each customer group
+Interactive 5-page Streamlit app — no setup required, runs in your browser.
 
 ---
 
-## Dataset
+## 📌 Business Problem
 
-**UCI Online Retail II** — a publicly available dataset from the UCI Machine Learning Repository.
+E-commerce companies like Amazon, Shopify, and Flipkart lose significant revenue every year to customer churn — yet most analytics stops at reporting who has already left. This project goes further: it predicts which customers are likely to churn, estimates the economic value at stake for each one, and recommends specific, budget-prioritised retention actions per segment.
 
-| Property | Detail |
-|---|---|
-| Source | UCI Machine Learning Repository |
-| Records | ~1 million transactions |
-| Time Period | December 2009 – December 2011 |
-| Geography | UK-based online retailer, customers worldwide |
-| Key Fields | `CustomerID`, `InvoiceDate`, `Quantity`, `UnitPrice`, `Country`, `Description` |
-
-The dataset represents a real wholesale giftware retailer and closely mirrors the transactional structure of modern e-commerce platforms.
+By combining RFM segmentation, XGBoost classification, and customer lifetime value modelling on 779,425 real retail transactions, this project demonstrates the kind of end-to-end analytical thinking that drives measurable commercial outcomes — not just dashboards.
 
 ---
 
-## Tech Stack
+## 🔍 Key Findings
 
-| Category | Tools |
-|---|---|
-| Data Wrangling | `pandas`, `numpy` |
-| Machine Learning | `scikit-learn`, `xgboost`, `lightgbm` |
-| CLV Modeling | `lifetimes` (BG/NBD + Gamma-Gamma) |
-| Visualization | `matplotlib`, `seaborn`, `plotly` |
-| Dashboard | `streamlit` |
-| Experiment Tracking | `mlflow` |
-| Environment | Python 3.10+, Jupyter |
+- **5,878 customers** analysed across **779,425 transactions** (UCI Online Retail II, 2009–2011)
+- **2 behavioural segments** identified: **Champions** (39.3%) and **Dormant / At-Risk** (60.7%)
+- Champions represent **39.3% of customers** but **87.4% of projected 3-year revenue**
+- **£3,359,853** in revenue identified as at-risk due to churn
+- XGBoost churn model: **98.3% accuracy · 98.5% recall · ROC-AUC 0.999**
+- **Frequency is the #1 churn driver** (53.3% feature importance) — customers who stop purchasing frequently are the earliest-warning churn signal
+- **3,860 customers** identified where a £10 retention intervention yields **£3,089,821 expected return (80× ROI)**
+- **Platinum CLV tier:** 588 customers (10%) holding **£16.5M** in projected 3-year value
 
 ---
 
-## Project Structure
+## 🗂️ Project Structure
 
 ```
 customer-retention-analysis/
 ├── data/
-│   ├── raw/            # Source data (not tracked by git)
-│   └── processed/      # Cleaned & feature-engineered outputs
+│   ├── raw/                  # Original dataset (not tracked)
+│   └── processed/            # Cleaned data and model outputs
 ├── notebooks/
-│   └── exploration.ipynb   # EDA and prototyping
+│   ├── exploration.ipynb     # Phase 1: EDA
+│   ├── segmentation.ipynb    # Phase 2: RFM + clustering
+│   ├── churn_model.ipynb     # Phase 3: Churn prediction
+│   └── clv.ipynb             # Phase 4: CLV estimation
 ├── src/
-│   ├── __init__.py
-│   ├── data_processing.py  # Cleaning, feature engineering, RFM table
-│   ├── segmentation.py     # K-Means clustering + segment labeling
-│   ├── churn_model.py      # XGBoost/LightGBM churn classifier
-│   └── clv.py              # BG/NBD + Gamma-Gamma CLV estimation
+│   ├── data_processing.py    # Data loading and cleaning
+│   ├── segmentation.py       # RFM + K-Means clustering
+│   ├── churn_model.py        # XGBoost churn model
+│   └── clv.py                # CLV estimation
 ├── app/
-│   └── streamlit_app.py    # Interactive dashboard
-├── .gitignore
+│   └── streamlit_app.py      # 5-page Streamlit dashboard
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## How to Run
+## 🔬 Methodology
 
-### 1. Clone the repository
+1. **Data Ingestion:** Loaded UCI Online Retail II dataset (1,067,371 raw transactions, 2 sheets combined)
+2. **Data Cleaning:** Removed nulls, duplicates, cancellations, and invalid prices — 287,946 rows removed (27%), 779,425 retained
+3. **Feature Engineering:** Computed RFM (Recency, Frequency, Monetary Value) per customer using 2011-12-10 as reference date
+4. **Segmentation:** Applied log transformation + StandardScaler, K-Means clustering with k=2 (silhouette score = 0.439)
+5. **Churn Prediction:** XGBoost classifier, 80/20 stratified split, MLflow experiment tracking, evaluated on precision + recall
+6. **CLV Estimation:** 3-year projection (Monetary × 1.5), risk-adjusted by churn probability, retention ROI calculated at £10/customer intervention cost
+7. **Dashboard:** 5-page Streamlit app with interactive Plotly charts, customer lookup tool, and business action framework
+
+---
+
+## 🧰 Tech Stack
+
+| Category | Tools |
+|---|---|
+| Data | Python, Pandas, NumPy |
+| ML / Modelling | Scikit-learn, XGBoost, LightGBM |
+| Visualisation | Plotly, Matplotlib, Seaborn |
+| App | Streamlit |
+| Experiment Tracking | MLflow |
+| Dataset | UCI Online Retail II (via Kaggle) |
+| Version Control | Git, GitHub |
+
+---
+
+## 📊 Dashboard Pages
+
+| Page | Description |
+|---|---|
+| 🏠 Executive Summary | KPIs, segment overview, model metrics |
+| 👥 Customer Segments | RFM distributions, 3D scatter, quadrant matrix |
+| 🔮 Churn Prediction | Model performance, risk tiers, customer lookup |
+| 💰 Customer Lifetime Value | CLV tiers, revenue at risk, retention ROI |
+| 🎯 Retention Strategy | Budget allocation, action framework, methodology |
+
+---
+
+## ⚙️ How to Run Locally
+
 ```bash
-git clone https://github.com/<your-username>/customer-retention-analysis.git
+# Clone the repo
+git clone https://github.com/vishaalsai/customer-retention-analysis.git
 cd customer-retention-analysis
-```
 
-### 2. Set up a virtual environment
-```bash
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate        # macOS/Linux
-venv\Scripts\activate           # Windows
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### 3. Add raw data
-Download the **UCI Online Retail II** dataset and place it as `data/raw/online_retail_II.xlsx`. This folder is excluded from version control.
+# Download dataset
+# Place online_retail_II.xlsx in data/raw/
 
-### 4. Run notebooks
-```bash
-jupyter notebook notebooks/exploration.ipynb
-```
+# Run the pipeline
+python src/data_processing.py
+python src/segmentation.py
+python src/churn_model.py
+python src/clv.py
 
-### 5. Launch the dashboard
-```bash
+# Launch the dashboard
 streamlit run app/streamlit_app.py
 ```
 
 ---
 
-## Project Phases Roadmap
+## ⚠️ Limitations & Future Work
 
-- [x] **Phase 0** — Project setup, folder structure, README
-- [ ] **Phase 1** — Data ingestion, cleaning, and exploratory data analysis (EDA)
-- [ ] **Phase 2** — RFM feature engineering and customer segmentation (K-Means)
-- [ ] **Phase 3** — Churn prediction model (XGBoost / LightGBM + MLflow tracking)
-- [ ] **Phase 4** — Customer Lifetime Value estimation (BG/NBD + Gamma-Gamma)
-- [ ] **Phase 5** — Streamlit dashboard (interactive segment explorer + CLV viewer)
-- [ ] **Phase 6** — Model evaluation, explainability (SHAP), and business write-up
-- [ ] **Phase 7** — Final polish: docstrings, tests, GitHub Actions CI
+### Known Limitations
+
+- **Churn label** is derived from RFM-based segmentation, not actual cancellation events — in production this would use verified churn signals (account closure, 90-day inactivity) to eliminate label leakage between features and target
+- **CLV model** uses a simplified linear projection (Monetary × 1.5) — a BG/NBD probabilistic model would be more accurate for production use
+- **Dataset scope:** 2009–2011 UK retail transactions — behavioural patterns may differ in modern, mobile-first e-commerce contexts
+
+### Future Improvements
+
+- Replace churn label with an event-based definition (subscription cancellation logs, inactivity thresholds)
+- Implement BG/NBD + Gamma-Gamma model for CLV using the `lifetimes` library
+- Add an A/B test framework to measure actual retention intervention ROI post-deployment
+- Build a real-time customer scoring API using FastAPI or Flask
+- Add cohort analysis to track segment migration (Champion → At-Risk) over time
 
 ---
 
-## Author
+## 👤 Author
 
-Built as a portfolio project demonstrating end-to-end data science — from raw transactional data to business-ready insights.
+Built by **Vishaalsai**
+
+- GitHub: [github.com/vishaalsai](https://github.com/vishaalsai)
+- Project: [Customer Segmentation & Retention Analysis](https://github.com/vishaalsai/customer-retention-analysis)
+
+---
+
+## 📄 License
+
+MIT License
