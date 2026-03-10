@@ -18,6 +18,10 @@ data/raw/
 *.xlsx
 *.csv
 
+# Keep processed outputs for Streamlit Cloud deployment
+!data/processed/*.csv
+!data/processed/*.png
+
 # Environment variables
 .env
 .env.*

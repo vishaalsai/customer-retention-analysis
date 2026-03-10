@@ -1,0 +1,3 @@
+Segment,Customers,Mean_CLV_basic,Mean_CLV_adj,Total_CLV_basic,Total_CLV_adj,Pct_Customers,Pct_Total_CLV,Revenue_at_Risk
+Champions,2312,9854,9756,22782845,22556106,39.3,87.4,226739
+Dormant / At-Risk,3566,920,41,3279361,146247,60.7,12.6,3133114
