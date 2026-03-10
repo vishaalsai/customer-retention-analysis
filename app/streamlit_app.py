@@ -1,14 +1,16 @@
 """
 streamlit_app.py
 ----------------
-Interactive Streamlit dashboard for the Customer Segmentation & Retention Analysis project.
+Streamlit dashboard for the Customer Segmentation & Retention Analysis
+project. Presents customer segments, churn predictions, CLV estimates, and
+business action recommendations for an e-commerce retail business.
 
 Dashboard sections (planned):
     1. Overview     — Key business metrics: total customers, churn rate, avg CLV
     2. Segments     — Interactive RFM segment explorer (scatter plot + segment profiles)
     3. Churn Risk   — Churn probability distribution; filter/search by customer
     4. CLV          — Customer Lifetime Value leaderboard and tier breakdown
-    5. Model Info   — MLflow experiment run comparison and feature importance (SHAP)
+    5. Actions      — Segment-level business recommendations (retain, upsell, re-engage)
 
 Usage:
     streamlit run app/streamlit_app.py

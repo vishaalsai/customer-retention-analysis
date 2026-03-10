@@ -1,15 +1,15 @@
-# Customer Segmentation & Retention Analysis
+# Customer Segmentation & Retention Analysis — E-Commerce
 
-> End-to-end data science project: customer segmentation, churn prediction, and lifetime value estimation — framed for a subscription-based streaming business (Spotify / Netflix context).
+> End-to-end data science project: customer segmentation, churn prediction, and lifetime value estimation — applied to a real-world e-commerce transactional dataset.
 
 ---
 
 ## Overview
 
-Streaming platforms live and die by subscriber retention. This project applies unsupervised and supervised machine learning to a real transactional dataset to answer three core business questions:
+E-commerce platforms depend on repeat purchases to stay profitable. This project applies unsupervised and supervised machine learning to 1M+ real transactions to answer three core business questions:
 
-1. **Who are our customers?** — RFM-based segmentation using K-Means clustering to identify High-Value, At-Risk, Dormant, and New cohorts.
-2. **Who is about to leave?** — Churn prediction using XGBoost / LightGBM with feature engineering on listening/engagement patterns.
+1. **Who are our customers?** — RFM-based segmentation using K-Means clustering to identify High-Value Loyalists, At-Risk Mid-Tier, and Low-Engagement One-Time Buyers.
+2. **Who is about to leave?** — Churn prediction using XGBoost / LightGBM with feature engineering on purchase recency, frequency, and order value patterns.
 3. **How much is each customer worth?** — Customer Lifetime Value (CLV) estimation using the BG/NBD + Gamma-Gamma model via the `lifetimes` library.
 
 Results are surfaced in an interactive **Streamlit dashboard** and tracked with **MLflow** for experiment reproducibility.
@@ -18,12 +18,32 @@ Results are surfaced in an interactive **Streamlit dashboard** and tracked with 
 
 ## Business Problem
 
-A streaming company's growth depends not just on new user acquisition, but on **retaining and monetizing existing subscribers**. Industry benchmarks show that increasing customer retention by just 5% can boost profits by 25–95%. Yet most platforms struggle to move beyond vanity metrics (DAU/MAU) toward actionable, user-level intelligence.
+For e-commerce companies like **Amazon**, **Shopify**, or **Flipkart**, growth depends not just on acquiring new buyers but on understanding and retaining existing ones. Industry research shows that returning customers spend 67% more than first-time buyers, and acquiring a new customer costs 5–7× more than retaining an existing one.
 
-This project simulates the analytical workflow a Data Scientist at Spotify or Netflix would run to:
-- Identify high-value subscriber segments for targeted marketing
-- Flag users showing early churn signals for proactive intervention
-- Prioritize retention spend by estimated lifetime value
+Yet most retail analytics teams struggle to move beyond aggregate dashboards toward actionable, customer-level intelligence. The core questions go unanswered:
+
+> *"How do we identify which customers are about to churn, which are high-value, and what actions should we take for each segment?"*
+
+This project simulates the analytical workflow a Data Scientist at an e-commerce company would run to:
+- Identify high-value customer segments for targeted loyalty and upsell campaigns
+- Flag customers showing early churn signals for proactive retention outreach
+- Prioritize marketing spend by quantifying the economic value of each customer group
+
+---
+
+## Dataset
+
+**UCI Online Retail II** — a publicly available dataset from the UCI Machine Learning Repository.
+
+| Property | Detail |
+|---|---|
+| Source | UCI Machine Learning Repository |
+| Records | ~1 million transactions |
+| Time Period | December 2009 – December 2011 |
+| Geography | UK-based online retailer, customers worldwide |
+| Key Fields | `CustomerID`, `InvoiceDate`, `Quantity`, `UnitPrice`, `Country`, `Description` |
+
+The dataset represents a real wholesale giftware retailer and closely mirrors the transactional structure of modern e-commerce platforms.
 
 ---
 
@@ -44,7 +64,7 @@ This project simulates the analytical workflow a Data Scientist at Spotify or Ne
 ## Project Structure
 
 ```
-spotify-retention-analysis/
+customer-retention-analysis/
 ├── data/
 │   ├── raw/            # Source data (not tracked by git)
 │   └── processed/      # Cleaned & feature-engineered outputs
@@ -69,8 +89,8 @@ spotify-retention-analysis/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/spotify-retention-analysis.git
-cd spotify-retention-analysis
+git clone https://github.com/<your-username>/customer-retention-analysis.git
+cd customer-retention-analysis
 ```
 
 ### 2. Set up a virtual environment
@@ -82,7 +102,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Add raw data
-Place the source dataset (e.g., `online_retail.xlsx`) inside `data/raw/`. This folder is excluded from version control.
+Download the **UCI Online Retail II** dataset and place it as `data/raw/online_retail_II.xlsx`. This folder is excluded from version control.
 
 ### 4. Run notebooks
 ```bash

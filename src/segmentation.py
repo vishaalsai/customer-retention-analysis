@@ -1,14 +1,16 @@
 """
 segmentation.py
 ---------------
-Customer segmentation using unsupervised machine learning on RFM features.
+Module for unsupervised customer segmentation using clustering algorithms
+(K-Means, DBSCAN). Groups customers into behavioral segments such as
+High-Value Loyalists, At-Risk Mid-Tier, and Low-Engagement One-Time Buyers
+based on RFM features.
 
 Responsibilities:
     - Scale RFM features for clustering (StandardScaler / RobustScaler)
     - Determine optimal number of clusters via Elbow method and Silhouette score
     - Fit K-Means model and assign cluster labels to each customer
-    - Map numeric cluster IDs to human-readable business segments:
-        e.g., "Champions", "At Risk", "Hibernating", "New Customers"
+    - Map numeric cluster IDs to human-readable business segments
     - Generate segment-level summary statistics and visualizations
 
 Typical usage:

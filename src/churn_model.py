@@ -1,11 +1,14 @@
 """
 churn_model.py
 --------------
-Binary churn prediction model using gradient boosting classifiers.
+Module for building and evaluating a churn prediction model using XGBoost/
+LightGBM. Defines churn based on customer inactivity window, trains a
+supervised classifier, and outputs churn probabilities per customer with
+feature importance analysis.
 
 Responsibilities:
     - Define churn label based on recency threshold (e.g., no purchase in 90 days)
-    - Prepare feature matrix from RFM + behavioral/engagement features
+    - Prepare feature matrix from RFM + behavioral/transactional features
     - Train XGBoost or LightGBM classifier with cross-validation
     - Track experiments, parameters, and metrics using MLflow
     - Evaluate model: ROC-AUC, Precision-Recall curve, confusion matrix

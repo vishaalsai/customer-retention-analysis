@@ -1,7 +1,9 @@
 """
 clv.py
 ------
-Customer Lifetime Value (CLV) estimation using probabilistic models.
+Module for estimating Customer Lifetime Value (CLV) per customer and per
+segment. Combines average order value, purchase frequency, and predicted
+retention period to quantify the economic value of each customer group.
 
 Responsibilities:
     - Fit the BG/NBD (Beta-Geometric / Negative Binomial Distribution) model
